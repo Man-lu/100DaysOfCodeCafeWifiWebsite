@@ -8,8 +8,11 @@
     {% for cafe in cafes %}
     <div>
         <img src="{{cafe.img_url}}" width="250", height="200"/>
-        <p>{{cafe.name}}</p>
-        <a href="{{cafe.map_url}}" target="_blank">Directions</a>
+        <p><a href="{{url_for('get_single_cafe', id = cafe.id)}}">{{cafe.name}}</a> </p>
+        <p>{{cafe.location}}</p>
+        <a href="#">y</a>
+        <a href="#" >x</a>
+        <button><a href="{{cafe.map_url}}" target="_blank">Directions</a></button>
 
     </div>
 {% endfor %}
