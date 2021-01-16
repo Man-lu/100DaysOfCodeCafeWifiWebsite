@@ -11,6 +11,13 @@ def home():
     data = response.json()
     return render_template("index.html", cafes=data)
 
+@app.route("/cafe/<id>")
+def get_single_cafe(id):
+    response = requests.get(f"{all_cafes}/{id}")
+    data = response.json()
+    print(data)
+    return render_template("single_cafe.html", cafe=data)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
