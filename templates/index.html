@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for cafe in cafes %}
+    <div>
+        <img src="{{cafe.img_url}}" width="250", height="200"/>
+        <p>{{cafe.name}}</p>
+        <a href="{{cafe.map_url}}" target="_blank">Directions</a>
+
+    </div>
+{% endfor %}
+</body>
+</html>
