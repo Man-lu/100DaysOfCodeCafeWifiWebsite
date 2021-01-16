@@ -5,16 +5,19 @@
     <title>Title</title>
 </head>
 <body>
+
     {% for cafe in cafes %}
     <div>
         <img src="{{cafe.img_url}}" width="250", height="200"/>
         <p><a href="{{url_for('get_single_cafe', id = cafe.id)}}">{{cafe.name}}</a> </p>
         <p>{{cafe.location}}</p>
         <a href="#">y</a>
-        <a href="#" >x</a>
+        <a href="{{url_for('delete_cafe', id = cafe.id)}}" >x</a>
         <button><a href="{{cafe.map_url}}" target="_blank">Directions</a></button>
 
     </div>
 {% endfor %}
+
+
 </body>
 </html>
