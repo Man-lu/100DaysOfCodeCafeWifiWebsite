@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+     <div>
+         <div>
+        <img src="{{cafe.img_url}}" width="250", height="200"/>
+        <p>Location: {{cafe.name}}</p>
+        <p>Coffee Price: {{cafe.coffee_price}}</p>
+        <p>Seats: {{cafe.seats}}</p>
+        <p>Has Sockets:
+            {% if cafe.has_sockets %}
+                Yes
+            {% else %}
+                No
+             {% endif %}
+        </p>
+         <p>Has Wifi:
+            {% if cafe.has_wifi %}
+                Yes
+            {% else %}
+                No
+             {% endif %}
+        </p>
+
+        <a href="#">y</a>
+        <a href="#" >x</a>
+        <button><a href="{{cafe.map_url}}" target="_blank">Directions</a></button>
+
+
+    </div>
+
+    </div>
+</body>
+</html>
