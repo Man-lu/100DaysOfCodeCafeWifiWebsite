@@ -5,10 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-     <div>
+
          <div>
         <img src="{{cafe.img_url}}" width="250", height="200"/>
-        <p>Location: {{cafe.name}}</p>
+        <p>Cafe: {{cafe.name}}</p>
+         <p>Location: {{cafe.location}}</p>
         <p>Coffee Price: {{cafe.coffee_price}}</p>
         <p>Seats: {{cafe.seats}}</p>
         <p>Has Sockets:
@@ -28,11 +29,13 @@
 
         <a href="#">y</a>
         <a href="{{url_for('delete_cafe', id = cafe.id)}}" >x</a>
+     <div>
         <button><a href="{{cafe.map_url}}" target="_blank">Directions</a></button>
 
 
     </div>
+     </div>
 
-    </div>
+
 </body>
 </html>
