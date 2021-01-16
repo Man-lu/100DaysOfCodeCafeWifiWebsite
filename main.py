@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for
 import requests
 from api_routes import all_cafes
 
+
 app = Flask(__name__)
 
 
@@ -25,6 +26,13 @@ def delete_cafe(id):
     requests.delete(f"{all_cafes}/{id}")
     return redirect(url_for('home'))
 
+
+@app.route("/cafes/<location>")
+def search_cafes(location):
+    PARAMS = {"loc": location}
+    response = requests.get("https://api-pretoria-cafe.herokuapp.com/api/cafes/search", params=PARAMS)
+    data = response.json()
+    return render_template("search_results.html", cafes=data)
 
 
 if __name__ == "__main__":
