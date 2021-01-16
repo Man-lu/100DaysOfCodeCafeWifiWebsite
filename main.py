@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 import requests
 from api_routes import all_cafes
 
@@ -11,12 +11,20 @@ def home():
     data = response.json()
     return render_template("index.html", cafes=data)
 
+
 @app.route("/cafe/<id>")
 def get_single_cafe(id):
     response = requests.get(f"{all_cafes}/{id}")
     data = response.json()
-    print(data)
+    print("get ran")
     return render_template("single_cafe.html", cafe=data)
+
+
+@app.route("/<id>")
+def delete_cafe(id):
+    requests.delete(f"{all_cafes}/{id}")
+    return redirect(url_for('home'))
+
 
 
 if __name__ == "__main__":
