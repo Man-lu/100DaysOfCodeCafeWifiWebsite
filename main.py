@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, jsonify
+from flask import Flask, render_template, redirect, url_for
 import requests
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, IntegerField, FloatField, SubmitField
@@ -12,6 +12,7 @@ from api_routes import all_cafes
 app = Flask(__name__)
 Bootstrap(app)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihccvsaBXox7C0sKR6b'
+
 
 class AddCafeForm(FlaskForm):
     name = StringField('Cafe Name', validators=[DataRequired()])
@@ -48,8 +49,8 @@ def delete_cafe(id):
 
 @app.route("/cafes/<location>")
 def search_cafes(location):
-    PARAMS = {"loc": location}
-    response = requests.get("https://api-pretoria-cafe.herokuapp.com/api/cafes/search", params=PARAMS)
+    params = {"loc": location}
+    response = requests.get("https://api-pretoria-cafe.herokuapp.com/api/cafes/search", params=params)
     data = response.json()
     return render_template("search_results.html", cafes=data)
 
@@ -71,42 +72,29 @@ def add_cafe():
         return redirect(url_for('home'))
     return render_template("add.html", form=form, is_post = True)
 
-#
+
 @app.route("/cafe/edit/<id>", methods=['GET', 'POST'])
 def edit_cafe(id):
     response = requests.get(f"{all_cafes}/{id}")
     data = response.json()
 
-    form_edit = AddCafeForm(name=data["name"],location=data["location"],img_url=data["img_url"],
-                       map_url=data["map_url"],has_sockets=data["has_sockets"],
-                       has_wifi=data["has_wifi"],seats=data["seats"],coffee_price=data["coffee_price"])
+    form_edit = AddCafeForm(name=data["name"], location=data["location"],
+                            img_url=data["img_url"],map_url=data["map_url"],
+                            has_sockets=data["has_sockets"],has_wifi=data["has_wifi"],
+                            seats=data["seats"], coffee_price=data["coffee_price"])
 
     if form_edit.validate_on_submit():
         headers = {"Content-Type": "application/json"}
-        edited_cafe = {"name": form_edit.name.data, "location": form_edit.location.data, "img_url": form_edit.img_url.data,
-                       "map_url": form_edit.map_url.data, "has_sockets": form_edit.has_sockets.data,
-                       "has_wifi": form_edit.has_wifi.data,
+        edited_cafe = {"name": form_edit.name.data, "location": form_edit.location.data,
+                       "img_url": form_edit.img_url.data,"map_url": form_edit.map_url.data,
+                       "has_sockets": form_edit.has_sockets.data,"has_wifi": form_edit.has_wifi.data,
                        "seats": form_edit.seats.data, "coffee_price": form_edit.coffee_price.data}
-        # form_edit.name = form_edit.name.data
-        # form_edit.location = form_edit.location.data
-        # form_edit.img_url = form_edit.img_url.data
-        # form_edit.map_url = form_edit.map_url.data
-        # form_edit.has_sockets = form_edit.has_sockets.data
-        # form_edit.has_wifi = form_edit.has_wifi.data
-        # form_edit.seats = form_edit.seats.data
-        # form_edit.coffee_price = form_edit.coffee_price.data
-        #
-        # headers = {"Content-Type": "application/json"}
-        # edited_cafe = {"name": form_edit.name, "location": form_edit.location, "img_url": form_edit.img_url,
-        #             "map_url": form_edit.map_url, "has_sockets": form_edit.has_sockets,
-        #                "has_wifi": form_edit.has_wifi,
-        #             "seats": form_edit.seats, "coffee_price": form_edit.coffee_price}
 
         data = json.dumps(edited_cafe)
         requests.put(f"{all_cafes}/{id}",data=data, headers=headers)
-        return redirect(url_for('get_single_cafe',id = id))
-#
-    return render_template("add.html", form = form_edit, id =id)
+        return redirect(url_for('get_single_cafe', id=id))
+
+    return render_template("add.html", form=form_edit, id=id)
 
 
 if __name__ == "__main__":
