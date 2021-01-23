@@ -1,11 +1,11 @@
-{% extends 'bootstrap/base.html' %}
+{% include "header.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
-<div class="container">
+<div class="container ">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="col-lg-8 col-md-10 mx-auto mt">
           {% if is_post %}
-          <h2>Add Cafe</h2>
+          <h2>Add New Cafe</h2>
           <form method="POST" action="{{url_for('add_cafe')}}">
 
             {{wtf.quick_form(form, novalidate=True)}}

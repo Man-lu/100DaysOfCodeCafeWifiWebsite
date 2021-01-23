@@ -1,0 +1,62 @@
+.mycontainer{
+margin-top:100px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+.links-icon a:first-child{
+ margin-right:10px;
+}
+.mycards{
+margin-top: 20px;
+
+}
+
+.card-title a {
+    text-decoration: none;
+    color: black;
+}
+
+.card-title a:hover {
+  color: hotpink;
+}
+
+span{
+color: hotpink;
+}
+
+h2,h3{
+margin-bottom: 20px;
+text-align:center;
+color: hotpink;
+
+}
+
+.mx-auto {
+  margin-top: 80px !important;
+}
+
+.resize{
+margin-bottom: 20px !important;
+}
+
+.list-group-item span{
+    font-weight: bold;
+    color:black;
+}
+
+h4 a{
+text-decoration: none;
+    color: black;
+}
+
+h4 a:hover {
+  color: hotpink;
+}
+
+h6 span{
+    font-weight: bold;
+
+}

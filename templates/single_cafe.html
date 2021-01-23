@@ -1,41 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% include "header.html" %}
+{% block content %}
 
-         <div>
-        <img src="{{cafe.img_url}}" width="250", height="200"/>
-        <p>Cafe: {{cafe.name}}</p>
-         <p>Location: {{cafe.location}}</p>
-        <p>Coffee Price: {{cafe.coffee_price}}</p>
-        <p>Seats: {{cafe.seats}}</p>
-        <p>Has Sockets:
-            {% if cafe.has_sockets %}
-                Yes
-            {% else %}
-                No
-             {% endif %}
-        </p>
-         <p>Has Wifi:
-            {% if cafe.has_wifi %}
-                Yes
-            {% else %}
-                No
-             {% endif %}
-        </p>
+<div class="container mycontainer">
 
-        <a href="{{url_for('edit_cafe', id = cafe.id)}}">y</a>
-        <a href="{{url_for('delete_cafe', id = cafe.id)}}" >x</a>
-     <div>
-        <button><a href="{{cafe.map_url}}" target="_blank">Directions</a></button>
+    <div class="row justify-content-start">
 
+         <div class="col-md-8 offset-md-2">
+
+  <div class="card" >
+    <img src="{{cafe.img_url}}" class="card-img-top" height="250px" width="300px" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"><a href="{{url_for('get_single_cafe', id = cafe.id)}}">{{cafe.name}}</a></h5>
 
     </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span>Location:</span> {{cafe.location}}</li>
+        <li class="list-group-item"><span>Coffee Price:</span> R{{cafe.coffee_price}}</li>
+        <li class="list-group-item"><span>Seats: </span>{{cafe.seats}}</li>
+        <li class="list-group-item"><span>Sockets:</span>
+         {% if cafe.has_sockets %}
+                <span class="fas fa-thumbs-up"></span>
+            {% else %}
+                <span class="fas fa-thumbs-down"></span>
+             {% endif %}
+        </li>
+         <li class="list-group-item"><span>Wifi:</span>
+         {% if cafe.has_wifi %}
+                <span class="fas fa-thumbs-up"></span>
+            {% else %}
+                <span class="fas fa-thumbs-down"></span>
+             {% endif %}
+        </li>
+
+    </ul>
+    <div class="card-body">
+        <div class="flex-container">
+           <div class="direction-btn">
+            <a href="{{cafe.map_url}}" target="_blank" class="btn btn-secondary">Directions</a>
+           </div>
+        <div class="links-icon">
+              <a href="{{url_for('edit_cafe', id = cafe.id)}}"><span class="fas fa-pen"></span></a>
+              <a href="{{url_for('delete_cafe', id = cafe.id)}}" ><span class="fas fa-trash"></span></a>
+        </div>
+        </div>
+          </div>
+
+  </div>
+        </div>
+
      </div>
 
 
-</body>
-</html>
+</div>
+{%endblock%}

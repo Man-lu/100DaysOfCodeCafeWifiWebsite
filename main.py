@@ -1,9 +1,10 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 import requests
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, IntegerField, FloatField, SubmitField
 from wtforms.validators import DataRequired
 from flask_bootstrap import Bootstrap
+from flask_fontawesome import FontAwesome
 import json
 
 from api_routes import all_cafes
@@ -11,6 +12,7 @@ from api_routes import all_cafes
 
 app = Flask(__name__)
 Bootstrap(app)
+fa = FontAwesome(app)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihccvsaBXox7C0sKR6b'
 
 
@@ -30,6 +32,7 @@ class AddCafeForm(FlaskForm):
 def home():
     response = requests.get(all_cafes)
     data = response.json()
+
     return render_template("index.html", cafes=data)
 
 
@@ -37,7 +40,6 @@ def home():
 def get_single_cafe(id):
     response = requests.get(f"{all_cafes}/{id}")
     data = response.json()
-    print("get ran")
     return render_template("single_cafe.html", cafe=data)
 
 
@@ -47,12 +49,15 @@ def delete_cafe(id):
     return redirect(url_for('home'))
 
 
-@app.route("/cafes/<location>")
-def search_cafes(location):
+@app.route("/cafes", methods=['POST'])
+def search_cafes():
+    location = request.form["location"]
+    print(location)
     params = {"loc": location}
     response = requests.get("https://api-pretoria-cafe.herokuapp.com/api/cafes/search", params=params)
     data = response.json()
-    return render_template("search_results.html", cafes=data)
+    return render_template("search_results.html", cafes=data, location=location)
+
 
 
 @app.route("/cafe/add", methods=['GET', 'POST'])
